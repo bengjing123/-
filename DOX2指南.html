@@ -1,0 +1,2308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOX2 恐龙重制X2 完整攻略</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-card: #1a2234;
+  --bg-card-hover: #1e2a40;
+  --bg-nav: #0d1220;
+  --bg-table-row: #151d2e;
+  --bg-table-row-alt: #1a2540;
+  --bg-code: #0d1117;
+  --bg-banner: linear-gradient(135deg, #0a0e17 0%, #1a1a2e 50%, #0a0e17 100%);
+  --text-primary: #e8e6e3;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --accent: #d4a44c;
+  --accent-hover: #e6b85c;
+  --accent-dim: rgba(212,164,76,0.15);
+  --accent-glow: rgba(212,164,76,0.3);
+  --danger: #ef4444;
+  --danger-bg: rgba(239,68,68,0.1);
+  --danger-border: rgba(239,68,68,0.4);
+  --warning: #f59e0b;
+  --warning-bg: rgba(245,158,11,0.1);
+  --warning-border: rgba(245,158,11,0.4);
+  --info: #3b82f6;
+  --info-bg: rgba(59,130,246,0.1);
+  --info-border: rgba(59,130,246,0.4);
+  --success: #10b981;
+  --success-bg: rgba(16,185,129,0.1);
+  --success-border: rgba(16,185,129,0.4);
+  --border: #1e293b;
+  --border-light: #2a3650;
+  --nav-width: 280px;
+  --header-height: 70px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --shadow: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -2px rgba(0,0,0,0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4), 0 4px 6px -4px rgba(0,0,0,0.3);
+  --transition: all 0.3s ease;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg-secondary);
+}
+
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-hover); }
+
+/* ========== HEADER ========== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: linear-gradient(180deg, rgba(10,14,23,0.98) 0%, rgba(10,14,23,0.95) 100%);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 1000;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  border: none;
+  background: none;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--accent);
+  transition: var(--transition);
+  border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+.header-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: 0 0 20px var(--accent-glow);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.header-title .sub {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+.search-box {
+  margin-left: auto;
+  position: relative;
+}
+
+.search-box input {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 8px 16px 8px 36px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  width: 240px;
+  font-family: inherit;
+  transition: var(--transition);
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+  width: 300px;
+}
+
+.search-box .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ========== NAVIGATION ========== */
+.nav {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  bottom: 0;
+  width: var(--nav-width);
+  background: var(--bg-nav);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 900;
+  padding: 16px 0;
+  transition: transform 0.3s ease;
+}
+
+.nav-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 899;
+}
+
+.nav-section {
+  margin-bottom: 4px;
+}
+
+.nav-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-section-title:hover {
+  background: var(--accent-dim);
+}
+
+.nav-section-title .arrow {
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+.nav-section-title.collapsed .arrow {
+  transform: rotate(-90deg);
+}
+
+.nav-section-items {
+  max-height: 1000px;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.nav-section-items.collapsed {
+  max-height: 0;
+}
+
+.nav-link {
+  display: block;
+  padding: 8px 20px 8px 36px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.82rem;
+  transition: var(--transition);
+  border-left: 3px solid transparent;
+  line-height: 1.5;
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.03);
+  border-left-color: var(--accent);
+}
+
+.nav-link.active {
+  color: var(--accent);
+  background: var(--accent-dim);
+  border-left-color: var(--accent);
+  font-weight: 500;
+}
+
+/* ========== MAIN CONTENT ========== */
+.main {
+  margin-left: var(--nav-width);
+  margin-top: var(--header-height);
+  padding: 32px 40px 80px;
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* ========== BANNER ========== */
+.banner {
+  background: var(--bg-banner);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 48px 40px;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+  opacity: 0.15;
+  animation: bannerPulse 8s ease-in-out infinite;
+}
+
+@keyframes bannerPulse {
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.2; transform: scale(1.05); }
+}
+
+.banner h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--accent);
+  text-shadow: 0 0 40px var(--accent-glow);
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.banner p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  position: relative;
+}
+
+/* ========== SECTIONS ========== */
+.section {
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--accent-dim);
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--accent);
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.subsection-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 32px 0 16px;
+  padding-left: 12px;
+  border-left: 3px solid var(--accent);
+}
+
+/* ========== CARDS ========== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 16px;
+  transition: var(--transition);
+}
+
+.card:hover {
+  border-color: var(--border-light);
+  box-shadow: var(--shadow);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius);
+  background: var(--accent-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.card-content {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+/* Step cards */
+.step-cards {
+  display: grid;
+  gap: 16px;
+}
+
+.step-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.step-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent), transparent);
+}
+
+.step-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px var(--accent-dim);
+  transform: translateX(4px);
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--bg-primary);
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.step-card h3 {
+  display: flex;
+  align-items: center;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.step-card p {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.8;
+}
+
+/* Attribute cards */
+.attr-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.attr-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.attr-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.attr-card .attr-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.attr-card h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.attr-card p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+/* ========== ALERT BOXES ========== */
+.alert {
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  position: relative;
+  border-left: 4px solid;
+}
+
+.alert-danger {
+  background: var(--danger-bg);
+  border-color: var(--danger);
+  color: #fca5a5;
+}
+
+.alert-warning {
+  background: var(--warning-bg);
+  border-color: var(--warning);
+  color: #fcd34d;
+}
+
+.alert-info {
+  background: var(--info-bg);
+  border-color: var(--info);
+  color: #93c5fd;
+}
+
+.alert-success {
+  background: var(--success-bg);
+  border-color: var(--success);
+  color: #6ee7b7;
+}
+
+.alert-label {
+  font-weight: 700;
+  margin-right: 8px;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.5px;
+}
+
+/* ========== TABLES ========== */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 16px 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.table-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 20px 0 8px;
+  padding: 8px 12px;
+  background: var(--accent-dim);
+  border-radius: var(--radius);
+  display: inline-block;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+thead {
+  background: rgba(212,164,76,0.12);
+}
+
+th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent-dim);
+  white-space: nowrap;
+}
+
+td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+
+tr:nth-child(even) {
+  background: var(--bg-table-row-alt);
+}
+
+tr:nth-child(odd) {
+  background: var(--bg-table-row);
+}
+
+tr:hover {
+  background: rgba(212,164,76,0.06);
+}
+
+td:first-child, th:first-child {
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* ========== CODE BLOCKS ========== */
+.code-block {
+  position: relative;
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 12px 0;
+  overflow: hidden;
+}
+
+.code-block pre {
+  padding: 16px 20px;
+  padding-right: 60px;
+  overflow-x: auto;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.85rem;
+  color: #e8e6e3;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-family: inherit;
+  transition: var(--transition);
+}
+
+.copy-btn:hover {
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.copy-btn.copied {
+  background: var(--success-bg);
+  color: var(--success);
+  border-color: var(--success);
+}
+
+/* ========== FAQ ACCORDION ========== */
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.faq-item:hover {
+  border-color: var(--border-light);
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+  gap: 12px;
+}
+
+.faq-question:hover {
+  background: var(--bg-card-hover);
+}
+
+.faq-question h4 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.faq-toggle {
+  color: var(--accent);
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.faq-item.open .faq-toggle {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.faq-answer-inner {
+  padding: 16px 20px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.8;
+  border-top: 1px solid var(--border);
+}
+
+.faq-item.open .faq-answer {
+  max-height: 600px;
+}
+
+/* ========== ITEM CARDS ========== */
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+}
+
+.item-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: var(--transition);
+}
+
+.item-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--accent-dim);
+}
+
+.item-card h4 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.item-card .rarity {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.rarity-common { background: rgba(156,163,175,0.2); color: #9ca3af; }
+.rarity-uncommon { background: rgba(16,185,129,0.2); color: #10b981; }
+.rarity-rare { background: rgba(59,130,246,0.2); color: #3b82f6; }
+.rarity-epic { background: rgba(168,85,247,0.2); color: #a855f7; }
+.rarity-legendary { background: rgba(245,158,11,0.2); color: #f59e0b; }
+
+.item-card p {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+/* ========== BACK TO TOP ========== */
+.back-to-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--bg-primary);
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: var(--transition);
+  z-index: 800;
+  box-shadow: 0 4px 15px rgba(212,164,76,0.4);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+/* ========== QUOTE ========== */
+.quote {
+  border-left: 3px solid var(--accent);
+  padding: 16px 20px;
+  margin: 24px 0;
+  background: var(--accent-dim);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-style: italic;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* ========== LIST ========== */
+.styled-list {
+  list-style: none;
+  padding: 0;
+}
+
+.styled-list li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.styled-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ========== EVOLUTION LIST ========== */
+.evo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.evo-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  transition: var(--transition);
+}
+
+.evo-list li:hover {
+  border-color: var(--accent);
+}
+
+.evo-list li strong {
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .main {
+    padding: 24px 20px 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+
+  .nav {
+    transform: translateX(-100%);
+  }
+
+  .nav.open {
+    transform: translateX(0);
+  }
+
+  .nav-overlay.open {
+    display: block;
+  }
+
+  .main {
+    margin-left: 0;
+    padding: 20px 16px 80px;
+  }
+
+  .header-title { font-size: 1rem; }
+  .header-title .sub { display: none; }
+
+  .search-box input {
+    width: 160px;
+  }
+  .search-box input:focus {
+    width: 200px;
+  }
+
+  .banner h1 { font-size: 1.5rem; }
+  .banner { padding: 32px 20px; }
+
+  .section-title { font-size: 1.4rem; }
+
+  .attr-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .item-grid {
+    grid-template-columns: 1fr;
+  }
+
+  table {
+    font-size: 0.75rem;
+  }
+
+  th, td {
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-box { display: none; }
+  .banner h1 { font-size: 1.2rem; }
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Armor set bonus */
+.set-bonus {
+  background: var(--accent-dim);
+  border: 1px solid rgba(212,164,76,0.3);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.set-bonus strong {
+  color: var(--accent);
+}
+
+.armor-total {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.3);
+  border-radius: var(--radius);
+  font-size: 0.82rem;
+  color: #6ee7b7;
+  font-weight: 500;
+}
+
+/* Search highlight */
+.search-highlight {
+  background: rgba(212,164,76,0.3);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* Dynamic list */
+.dynamic-list {
+  list-style: none;
+  padding: 0;
+}
+
+.dynamic-list li {
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--accent);
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.dynamic-list li strong {
+  color: var(--accent);
+}
+
+.trait-en {
+  font-size: 0.75em;
+  color: var(--accent);
+  opacity: 0.8;
+  margin-left: 4px;
+  font-weight: 400;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="header-title">DOX2 恐龙重制X2 攻略指南<span class="sub">Ark Survival Ascended Mod</span></div>
+  </div>
+  <div class="search-box">
+    <span class="search-icon">&#128269;</span>
+    <input type="text" id="searchInput" placeholder="搜索FAQ..." autocomplete="off">
+  </div>
+</header>
+
+<!-- NAV OVERLAY -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+  <div class="nav-section">
+    <div class="nav-section-title" data-target="section-beginner">
+      新手入门指南
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title" data-toggle="basics">
+      基础知识 <span class="arrow">&#9660;</span>
+    </div>
+    <div class="nav-section-items" id="basics-items">
+      <a class="nav-link" href="#overview">概述与平衡</a>
+      <a class="nav-link" href="#taming">驯服系统</a>
+      <a class="nav-link" href="#attributes">属性分类</a>
+      <a class="nav-link" href="#traits">特质系统</a>
+      <a class="nav-link" href="#trait-tables">特质类型表格</a>
+      <a class="nav-link" href="#primal-mega">原始/巨型特质</a>
+      <a class="nav-link" href="#legendary-traits">传说特质</a>
+      <a class="nav-link" href="#pygmy-traits">侏儒特质</a>
+      <a class="nav-link" href="#temp-traits">临时特质</a>
+      <a class="nav-link" href="#evolution">进化系统</a>
+      <a class="nav-link" href="#items">物品与消耗品</a>
+      <a class="nav-link" href="#structures">建筑系统</a>
+      <a class="nav-link" href="#dynamic">动态系统</a>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title" data-target="section-armor">
+      强化护甲系统
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title" data-target="section-settings">
+      游戏设置配置
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title" data-target="section-faq">
+      常见问题解答
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <h1>DOX2 恐龙重制X2</h1>
+    <p>Ark Survival Ascended - Dino Overhaul X 2 Mod 完整中文攻略</p>
+  </div>
+
+  <!-- ==================== 新手入门指南 ==================== -->
+  <div class="section" id="section-beginner">
+    <h2 class="section-title">新手入门指南</h2>
+    <p class="section-subtitle">简单5步指南帮助你快速上手</p>
+
+    <div class="alert alert-danger">
+      <span class="alert-label">&#9888; 注意</span>
+      忘掉你对方舟的所有认知以及其他任何生物重制模组... 遵循这5个简单步骤！
+    </div>
+
+    <div class="step-cards">
+      <div class="step-card">
+        <h3><span class="step-number">1</span>建立家园</h3>
+        <p>暂时不要驯服任何生物！专注于建立足够容纳约12只中等体型生物的家园... 不要快速升级！（例如：建造50个木筏只为达到最高等级... 你之后会后悔这样做，查看"追猎者"）推荐使用模组望远镜如"超级望远镜"，因为某些生物会有全局增益如"额外经验/战利品/或两者兼有"，给予稀有资源。</p>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-number">2</span>获取狩猎经验</h3>
+        <p>当你建立稳固家园时应该达到30-50级，拥有所有用于战斗、喂养和安置生物的必要设施！在DOX制作台学习"狩猎经验存储宝珠"蓝图（注意：你需要使用第1步提到的望远镜来定位"感染生物、强化、额外战利品、额外经验或两者兼有"，它们掉落"碎片神器"），开始寻找小型精英生物刷取直到获得2-6条"基因链"，用它们制作"狩猎经验存储宝珠"。考虑制作饲料，高级驯服食物有助于减少每次喂食的驯服成本。</p>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-number">3</span>繁殖与扩展</h3>
+        <p>专注于获取约3000-6000驯服经验，经常使用"狩猎经验存储宝珠"存储/恢复获得的任何经验。寻找50-100级的三角龙或翼龙（这将消耗约3000-5000经验），性别或等级不重要。如果你想驯服精英三角龙，每次喂食消耗更多经验... 游戏初期你不会进化三角龙... 而是用三角龙更快刷取更多经验同时进行基础资源采集。用三角龙再获取3000-6000经验并驯服一只异性三角龙... 然后开始繁殖确保进度不会丢失！注意：始终在家园的封闭墙壁内保留一对繁殖用生物，不被外部掠食者发现！翼龙是你的下一个驯服目标，它们提供敏捷性、探索能力和补给空投掠夺，如第3步所述，努力获得一对繁殖用生物！</p>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-number">4</span>建造防御</h3>
+        <p>现在你有了三角龙和翼龙的繁殖对，开始建造防御，如尖刺墙、X植物、炮塔，或你当前等级能负担的任何东西！不要将防御设施设置为攻击所有目标，你不想它攻击远古生物或其他高级Boss！继续扩展你的生物动物园，专注于繁殖、基因优化、突变等！这个过程需要时间无法急于求成！注意：你可能已经收集了一些DOX灵药，谨慎使用因为它们能提供临时的强大增益！</p>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-number">5</span>动物园管理</h3>
+        <p>没有健康的繁殖生物动物园你什么都不是！此时你应该专注于按食物链驯服，击杀精英生物并增加你的储备，应对更大的掠食者如原始生物或追猎者！在这个过程中你会遇到有特殊战利品的生物，给予额外经验或两者兼有，包括感染生物。专注于有额外增益标记的生物，如之前所列，如果你达到99级且追猎者盯上你，它们提供各种高级战利品，如强化护甲、基因链、药剂、稀有资源等，且是最容易刷取的Boss等级！</p>
+      </div>
+    </div>
+
+    <div class="alert alert-warning">
+      <span class="alert-label">&#9733; 重要</span>
+      不刷特质为生物获取理想特质，进阶几率几乎不可能，专注于获取你能得到的最佳特质，为此确保你有健康的繁殖生物动物园！
+    </div>
+
+    <div class="quote">
+      做好死亡的准备... 因为没有什么能替代批判性思维、规划和执行... 祝你好运幸存者！
+    </div>
+  </div>
+
+  <!-- ==================== 基础知识 ==================== -->
+  <div class="section" id="section-basics">
+    <h2 class="section-title">基础知识</h2>
+
+    <!-- 概述与平衡 -->
+    <h3 class="subsection-title" id="overview">概述与平衡</h3>
+    <div class="card">
+      <div class="card-content">
+        <p><strong>概述：</strong>DOX2融合了PvP/E的最佳元素并整合到PvE环境中，野生生物呈现出不断增长的挑战。批判性思维、准备、执行是PvP的核心，这个概念必须应用于进阶。</p>
+        <br>
+        <p><strong>平衡：</strong>每种生物的拖拽重量、伤害、速度、移动、步高、攀爬角度、击退等都经过重新调整，在某些情况下咬击范围/攻击范围也重新制作，以更好地让生物差异的全谱系更符合预期结果。</p>
+      </div>
+    </div>
+
+    <!-- 驯服系统 -->
+    <h3 class="subsection-title" id="taming">驯服系统</h3>
+    <div class="card">
+      <div class="card-content">
+        <p>向目标生物射入毒素箭或飞镖的时代已经过去，你必须赢得目标生物的尊重。要做到这一点，你可以手动喂食非攻击性/胆小生物它们最喜欢的浆果、肉类、饲料，或在附近（20米内）放置这些物品。对于更具攻击性的生物，如果没有吉利服或某种隐蔽增益，手动喂食可能是一个巨大的挑战；在附近放置食物可能是唯一的方法。手动喂食提供更高的驯服效率，在可能的情况下推荐使用。</p>
+        <br>
+        <div class="alert alert-info">
+          <span class="alert-label">&#8505; 提示</span>
+          虽然推荐对非攻击性生物使用手动喂食，但放置驯服食物可能是许多其他潜在驯服的唯一方法，请注意放置驯服食物需要x2-3倍数量的狩猎经验，但驯服速度比手动喂食快得多。
+        </div>
+        <br>
+        <p><strong>驯服（狩猎经验）：</strong>要使上述驯服方法生效，你必须首先拥有足够的"狩猎经验"。所需驯服亲和力总数的约2%将从你的总累积"狩猎经验"池中扣除。例如，如果驯服100级碳龟需要4000亲和力，那么每次喂食将消耗80经验。</p>
+        <br>
+        <div class="alert alert-info">
+          <span class="alert-label">&#8505; 提示</span>
+          一旦生物开始从食物堆中驯服，仇恨范围减少75%。
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-danger">
+      <span class="alert-label">&#9888; 警告</span>
+      如果你的目标驯服受到"任何"形式的伤害，驯服将被取消/无响应，忽略任何类型的食物2分钟！
+    </div>
+
+    <!-- 属性分类 -->
+    <h3 class="subsection-title" id="attributes">属性分类</h3>
+    <div class="card">
+      <div class="card-content">
+        <p>生物分为3类：敏捷/强壮/坚韧，每个类别都有自己的优势，没有特定指标来判断哪种生物属于哪个类别，但随着你升级，基于每点投入到属性类别的%增益，它会变得明显。</p>
+      </div>
+    </div>
+
+    <div class="attr-cards">
+      <div class="attr-card">
+        <div class="attr-icon">&#9889;</div>
+        <h4>敏捷</h4>
+        <p>更高的体力增益，低血量增益%，最快的血量、体力和昏迷值恢复</p>
+      </div>
+      <div class="attr-card">
+        <div class="attr-icon">&#9876;</div>
+        <h4>强壮</h4>
+        <p>更高的近战增益，均衡血量增益%，最慢的血量、体力和昏迷值恢复</p>
+      </div>
+      <div class="attr-card">
+        <div class="attr-icon">&#128737;</div>
+        <h4>坚韧</h4>
+        <p>均衡近战/体力增益，更高的血量增益%，均衡血量、体力和昏迷值恢复</p>
+      </div>
+    </div>
+
+    <!-- 特质系统 -->
+    <h3 class="subsection-title" id="traits">特质系统</h3>
+
+    <div class="card">
+      <div class="card-content">
+        <h4 style="color:var(--accent); margin-bottom:8px;">被动特质</h4>
+        <p>是进阶的核心机制，以速度、近战和减伤的形式提供大量多样性。特质通过承受伤害、主动击杀、通过基因链和/或灵药直接给予来获得。独特/独特野生(U/UW)特质在获得3个自然特质或3个人工特质后获得，要获得U/UW你的生物必须在战斗中承受伤害直到特质出现。注意：存在超过十几种基因类型来增强或削弱建造进阶，此外特质可以叠加使其成为加法或乘法。注意：不要与"临时特质"混淆，后者是在战斗中短时间内获得的。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <h4 style="color:var(--accent); margin-bottom:8px;">主动特质</h4>
+        <p>被击杀的生物的拖拽重量不能低于你攻击生物的拖拽重量-50才能有概率获得"特质"。</p>
+        <br>
+        <p>a. 当被击杀生物低于你的拖拽重量-50时，你的特质获得概率降低约25%，除非比你驯服高35级以上</p>
+        <p>b. 如果被击杀生物在你驯服50级以内（规则a仍然适用），获得特质的概率增加50%，或者在-50拖拽重量内且比你驯服高35级以上！</p>
+        <p>c. 如果是Boss，约66%概率获得特质，如果在Boss 50级以内则上述适用</p>
+      </div>
+    </div>
+
+    <div class="alert alert-warning">
+      <span class="alert-label">&#9733; 重要</span>
+      不要给你的驯服任何(A)人工特质如果你计划获得3个自然特质，因为(A)特质计入3个自然特质的限制！在完成自然特质获取后再给予(A)特质！
+    </div>
+
+    <!-- 特质类型表格 -->
+    <h3 class="subsection-title" id="trait-tables">特质类型表格</h3>
+
+    <!-- 完整特质数值对照总表 -->
+    <div class="info-box" style="border-color: var(--accent); margin-bottom: 2rem;">
+      <div style="font-size: 1.1em; font-weight: 700; color: var(--accent); margin-bottom: 1rem;">📋 完整特质数值对照总表</div>
+      <p style="margin-bottom: 1rem; opacity: 0.85;">以下为所有特质类别及对应 DMG（伤害）/ DR（减伤）/ SPEED（移速）的精确数值，方便与游戏内英文对照查询。</p>
+      <div class="table-wrapper" style="overflow-x: auto;">
+        <table style="font-size: 0.88em; min-width: 700px;">
+          <thead>
+            <tr style="background: var(--card);">
+              <th style="padding: 8px 12px;">类别</th>
+              <th style="padding: 8px 12px;">特质</th>
+              <th style="padding: 8px 12px;">DMG 伤害%</th>
+              <th style="padding: 8px 12px;">DR 减伤%</th>
+              <th style="padding: 8px 12px;">SPEED 移速%</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- (W) 野生 -->
+            <tr style="background: rgba(76,175,80,0.12);"><td rowspan="5" style="font-weight:700; color: #4CAF50; text-align: center; vertical-align: middle; border-right: 2px solid #4CAF50;">(W)<br><span style="font-size:0.8em;">野生</span></td><td>坚韧 <span class="trait-en">Tough</span></td><td style="color:#4CAF50;">+10</td><td style="color:#4CAF50;">+10</td><td style="color:#ef5350;">-5</td></tr>
+            <tr style="background: rgba(76,175,80,0.06);"><td>均衡 <span class="trait-en">Balanced</span></td><td style="color:#4CAF50;">+7.5</td><td style="color:#4CAF50;">+5</td><td style="color:#4CAF50;">+5</td></tr>
+            <tr style="background: rgba(76,175,80,0.12);"><td>疾风 <span class="trait-en">Runner</span></td><td style="color:#ef5350;">-5</td><td>0</td><td style="color:#4CAF50;">+15</td></tr>
+            <tr style="background: rgba(76,175,80,0.06);"><td>格斗 <span class="trait-en">Brawler</span></td><td style="color:#4CAF50;">+15</td><td style="color:#4CAF50;">+2.5</td><td style="color:#ef5350;">-5</td></tr>
+            <tr style="background: rgba(76,175,80,0.12);"><td style="opacity:0.5;">无特质 <span class="trait-en">No Trait</span></td><td>0</td><td>0</td><td>0</td></tr>
+            <!-- (N) 自然 -->
+            <tr style="background: rgba(255,235,59,0.12);"><td rowspan="5" style="font-weight:700; color: #FBC02D; text-align: center; vertical-align: middle; border-right: 2px solid #FBC02D;">(N)<br><span style="font-size:0.8em;">自然</span></td><td>坚韧 <span class="trait-en">Tough</span></td><td>0</td><td style="color:#4CAF50;">+15</td><td style="color:#ef5350;">-5</td></tr>
+            <tr style="background: rgba(255,235,59,0.06);"><td>均衡 <span class="trait-en">Balanced</span></td><td style="color:#4CAF50;">+5</td><td>0</td><td style="color:#4CAF50;">+5</td></tr>
+            <tr style="background: rgba(255,235,59,0.12);"><td>疾风 <span class="trait-en">Runner</span></td><td style="color:#ef5350;">-5</td><td>0</td><td style="color:#4CAF50;">+10</td></tr>
+            <tr style="background: rgba(255,235,59,0.06);"><td>格斗 <span class="trait-en">Brawler</span></td><td style="color:#4CAF50;">+10</td><td style="color:#4CAF50;">+5</td><td style="color:#ef5350;">-5</td></tr>
+            <tr style="background: rgba(255,235,59,0.12);"><td style="opacity:0.5;">无特质 <span class="trait-en">No Trait</span></td><td>0</td><td>0</td><td>0</td></tr>
+            <!-- (A) 人工 -->
+            <tr style="background: rgba(66,165,245,0.12);"><td rowspan="5" style="font-weight:700; color: #42A5F5; text-align: center; vertical-align: middle; border-right: 2px solid #42A5F5;">(A)<br><span style="font-size:0.8em;">人工</span></td><td>坚韧 <span class="trait-en">Tough</span></td><td>0</td><td style="color:#4CAF50;">+5</td><td style="color:#ef5350;">-2.5</td></tr>
+            <tr style="background: rgba(66,165,245,0.06);"><td>均衡 <span class="trait-en">Balanced</span></td><td style="color:#4CAF50;">+2.5</td><td>0</td><td style="color:#4CAF50;">+2.5</td></tr>
+            <tr style="background: rgba(66,165,245,0.12);"><td>疾风 <span class="trait-en">Runner</span></td><td>0</td><td>0</td><td style="color:#4CAF50;">+5</td></tr>
+            <tr style="background: rgba(66,165,245,0.06);"><td>格斗 <span class="trait-en">Brawler</span></td><td style="color:#4CAF50;">+5</td><td style="color:#4CAF50;">+2.5</td><td style="color:#ef5350;">-2.5</td></tr>
+            <tr style="background: rgba(66,165,245,0.12);"><td style="opacity:0.5;">无特质 <span class="trait-en">No Trait</span></td><td>0</td><td>0</td><td>0</td></tr>
+            <!-- (UW) 独特野生 -->
+            <tr style="background: rgba(255,152,0,0.12);"><td rowspan="5" style="font-weight:700; color: #FF9800; text-align: center; vertical-align: middle; border-right: 2px solid #FF9800;">(UW)<br><span style="font-size:0.8em;">独特野生</span></td><td>坚韧 <span class="trait-en">Tough</span></td><td style="color:#4CAF50;">+15</td><td style="color:#4CAF50;">+7.5</td><td style="color:#ef5350;">-5</td></tr>
+            <tr style="background: rgba(255,152,0,0.06);"><td>均衡 <span class="trait-en">Balanced</span></td><td style="color:#4CAF50;">+10</td><td style="color:#4CAF50;">+5</td><td style="color:#4CAF50;">+5</td></tr>
+            <tr style="background: rgba(255,152,0,0.12);"><td>疾风 <span class="trait-en">Runner</span></td><td style="color:#ef5350;">-5</td><td>0</td><td style="color:#4CAF50;">+15</td></tr>
+            <tr style="background: rgba(255,152,0,0.06);"><td>主宰 <span class="trait-en">Juggernaut</span></td><td style="color:#4CAF50;">+12.5</td><td style="color:#4CAF50;">+10</td><td style="color:#ef5350;">-2.5</td></tr>
+            <tr style="background: rgba(255,152,0,0.12);"><td style="opacity:0.5;">无特质 <span class="trait-en">No Trait</span></td><td>0</td><td>0</td><td>0</td></tr>
+            <!-- (U) 独特 -->
+            <tr style="background: rgba(33,150,243,0.12);"><td rowspan="5" style="font-weight:700; color: #2196F3; text-align: center; vertical-align: middle; border-right: 2px solid #2196F3;">(U)<br><span style="font-size:0.8em;">独特</span></td><td>坚韧 <span class="trait-en">Tough</span></td><td style="color:#4CAF50;">+5</td><td style="color:#4CAF50;">+15</td><td style="color:#ef5350;">-2.5</td></tr>
+            <tr style="background: rgba(33,150,243,0.06);"><td>均衡 <span class="trait-en">Balanced</span></td><td style="color:#4CAF50;">+10</td><td>0</td><td style="color:#4CAF50;">+10</td></tr>
+            <tr style="background: rgba(33,150,243,0.12);"><td>疾风 <span class="trait-en">Runner</span></td><td style="color:#ef5350;">-5</td><td>0</td><td style="color:#4CAF50;">+15</td></tr>
+            <tr style="background: rgba(33,150,243,0.06);"><td>主宰 <span class="trait-en">Juggernaut</span></td><td style="color:#4CAF50;">+15</td><td style="color:#4CAF50;">+10</td><td style="color:#ef5350;">-5</td></tr>
+            <tr style="background: rgba(33,150,243,0.12);"><td style="opacity:0.5;">无特质 <span class="trait-en">No Trait</span></td><td>0</td><td>0</td><td>0</td></tr>
+            <!-- (P) 原始 -->
+            <tr style="background: rgba(233,30,99,0.12);"><td rowspan="5" style="font-weight:700; color: #E91E63; text-align: center; vertical-align: middle; border-right: 2px solid #E91E63;">(P)<br><span style="font-size:0.8em;">原始</span></td><td>坚韧 <span class="trait-en">Tough</span></td><td style="color:#4CAF50;">+15</td><td style="color:#4CAF50;">+20</td><td>0</td></tr>
+            <tr style="background: rgba(233,30,99,0.06);"><td>均衡 <span class="trait-en">Balanced</span></td><td style="color:#4CAF50;">+20</td><td>0</td><td style="color:#4CAF50;">+5</td></tr>
+            <tr style="background: rgba(233,30,99,0.12);"><td>疾风 <span class="trait-en">Runner</span></td><td>0</td><td>0</td><td style="color:#4CAF50;">+25</td></tr>
+            <tr style="background: rgba(233,30,99,0.06);"><td>主宰 <span class="trait-en">Juggernaut</span></td><td style="color:#4CAF50;">+25</td><td style="color:#4CAF50;">+15</td><td style="color:#ef5350;">-5</td></tr>
+            <tr style="background: rgba(233,30,99,0.12);"><td style="opacity:0.5;">无特质 <span class="trait-en">No Trait</span></td><td>0</td><td>0</td><td>0</td></tr>
+            <!-- (M) 巨型 -->
+            <tr style="background: rgba(244,143,177,0.12);"><td rowspan="5" style="font-weight:700; color: #F48FB1; text-align: center; vertical-align: middle; border-right: 2px solid #F48FB1;">(M)<br><span style="font-size:0.8em;">巨型</span></td><td>坚韧 <span class="trait-en">Tough</span></td><td style="color:#4CAF50;">+15</td><td style="color:#4CAF50;">+25</td><td>0</td></tr>
+            <tr style="background: rgba(244,143,177,0.06);"><td>均衡 <span class="trait-en">Balanced</span></td><td style="color:#4CAF50;">+25</td><td>0</td><td style="color:#4CAF50;">+7.5</td></tr>
+            <tr style="background: rgba(244,143,177,0.12);"><td>疾风 <span class="trait-en">Runner</span>*<sup style="color:var(--accent);font-size:0.7em;">★</sup></td><td>0</td><td>0</td><td style="color:#4CAF50;">+15</td></tr>
+            <tr style="background: rgba(244,143,177,0.06);"><td>主宰 <span class="trait-en">Juggernaut</span></td><td style="color:#4CAF50;">+30</td><td style="color:#4CAF50;">+20</td><td style="color:#ef5350;">-5</td></tr>
+            <tr style="background: rgba(244,143,177,0.12);"><td style="opacity:0.5;">无特质 <span class="trait-en">No Trait</span></td><td>0</td><td>0</td><td>0</td></tr>
+            <!-- (GR) 成长 -->
+            <tr style="background: rgba(0,188,212,0.12);"><td rowspan="4" style="font-weight:700; color: #00BCD4; text-align: center; vertical-align: middle; border-right: 2px solid #00BCD4;">(GR)<br><span style="font-size:0.8em;">成长</span></td><td>近战 <span class="trait-en">MELEE</span></td><td style="color:#4CAF50;">+10</td><td>0</td><td>0</td></tr>
+            <tr style="background: rgba(0,188,212,0.06);"><td>减伤 <span class="trait-en">REDUCTION</span></td><td>0</td><td style="color:#4CAF50;">+10</td><td>0</td></tr>
+            <tr style="background: rgba(0,188,212,0.12);"><td>移速 <span class="trait-en">MOVEMENT</span></td><td>0</td><td>0</td><td style="color:#4CAF50;">+10</td></tr>
+            <tr style="background: rgba(0,188,212,0.06);"><td style="opacity:0.5;">无特质 <span class="trait-en">No Trait</span></td><td>0</td><td>0</td><td>0</td></tr>
+            <!-- CORR 腐化 -->
+            <tr style="background: rgba(156,39,176,0.12);"><td rowspan="4" style="font-weight:700; color: #9C27B0; text-align: center; vertical-align: middle; border-right: 2px solid #9C27B0;">CORR<br><span style="font-size:0.8em;">腐化</span></td><td>腐化伤害 <span class="trait-en">CORR DMG</span></td><td style="color:#4CAF50;">+25</td><td>0</td><td>0</td></tr>
+            <tr style="background: rgba(156,39,176,0.06);"><td>腐化减伤 <span class="trait-en">CORR DR</span></td><td>0</td><td style="color:#4CAF50;">+25</td><td>0</td></tr>
+            <tr style="background: rgba(156,39,176,0.12);"><td>腐化移速 <span class="trait-en">CORR SP</span></td><td>0</td><td>0</td><td style="color:#4CAF50;">+25</td></tr>
+            <tr style="background: rgba(156,39,176,0.06);"><td style="opacity:0.5;">无特质 <span class="trait-en">No Trait</span></td><td>0</td><td>0</td><td>0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note-box" style="margin-top: 1rem;">
+        <strong>说明：</strong>表中数值为对基础属性的百分比增减。例如生物近战% = 250 × (1 + 特质DMG总计)。<br>
+        <span style="color:#4CAF50;">绿色数值</span>为正面加成，<span style="color:#ef5350;">红色数值</span>为负面减益。<br>
+        <span style="color:var(--accent);">★ M疾风(Runner*)</span>拥有特殊被动闪避技能，详见下方说明。
+      </div>
+    </div>
+
+    <div class="table-title">野生(W)和独特野生(UW)特质表</div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>类型</th>
+            <th>坚韧 <span class="trait-en">Tough</span></th>
+            <th>均衡 <span class="trait-en">Balanced</span></th>
+            <th>疾风 <span class="trait-en">Runner</span></th>
+            <th>格斗 <span class="trait-en">Brawler</span></th>
+            <th>脆弱 <span class="trait-en">Fragile</span></th>
+            <th>虚弱 <span class="trait-en">Weak</span></th>
+            <th>瘫痪 <span class="trait-en">Paralyzed</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>W</td>
+            <td>+10%减伤<br>-5%移速<br>+10%伤害</td>
+            <td>+5%移速<br>+7.5%伤害<br>+5%减伤</td>
+            <td>+15%移速<br>-5%伤害</td>
+            <td>+15%伤害<br>+2.5%减伤<br>-5%移速</td>
+            <td>-10%减伤</td>
+            <td>-10%伤害</td>
+            <td>-10%移速<br>-5%减伤</td>
+          </tr>
+          <tr>
+            <td>UW</td>
+            <td>+7.5%减伤<br>-5%移速<br>+15%伤害</td>
+            <td>+5%移速<br>+10%伤害<br>+5%减伤</td>
+            <td>-5%伤害<br>+15%移速</td>
+            <td>+12.5%伤害<br>+10%减伤<br>-2.5%移速</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-title">独特(U)特质表</div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>坚韧 <span class="trait-en">Tough</span></th><th>均衡 <span class="trait-en">Balanced</span></th><th>疾风 <span class="trait-en">Runner</span></th><th>主宰 <span class="trait-en">Juggernaut</span></th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>+15%减伤<br>-2.5%移速<br>+5%伤害</td>
+            <td>+10%伤害<br>+10%移速</td>
+            <td>-5%伤害<br>+15%移速</td>
+            <td>+15%伤害<br>+10%减伤<br>-5%移速</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-title">自然获得特质（战斗中承受伤害获得，最多3个）</div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>坚韧 <span class="trait-en">Tough</span></th><th>均衡 <span class="trait-en">Balanced</span></th><th>疾风 <span class="trait-en">Runner</span></th><th>格斗 <span class="trait-en">Brawler</span></th><th>脆弱 <span class="trait-en">Fragile</span></th><th>虚弱 <span class="trait-en">Weak</span></th><th>瘫痪 <span class="trait-en">Paralyzed</span></th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>+15%减伤<br>-5%移速</td>
+            <td>+5%移速<br>+5%伤害</td>
+            <td>+10%移速<br>-5%伤害</td>
+            <td>+10%伤害<br>+5%减伤<br>-5%移速</td>
+            <td>-15%减伤</td>
+            <td>-15%伤害</td>
+            <td>-10%移速<br>-5%减伤</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-title">人工特质(A)（玩家通过基因链给予，最多6个）</div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>坚韧 <span class="trait-en">Tough</span></th><th>均衡 <span class="trait-en">Balanced</span></th><th>疾风 <span class="trait-en">Runner</span></th><th>格斗 <span class="trait-en">Brawler</span></th><th>脆弱 <span class="trait-en">Fragile</span></th><th>虚弱 <span class="trait-en">Weak</span></th><th>瘫痪 <span class="trait-en">Paralyzed</span></th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>+5%减伤<br>-2.5%移速</td>
+            <td>+2.5%移速<br>+2.5%伤害</td>
+            <td>+5%移速</td>
+            <td>+5%伤害<br>+2.5%减伤<br>-2.5%移速</td>
+            <td>-7.5%减伤</td>
+            <td>-7.5%伤害</td>
+            <td>-5%移速<br>-2.5%减伤</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 原始/巨型特质 -->
+    <h3 class="subsection-title" id="primal-mega">原始/巨型特质</h3>
+
+    <div class="table-title">原始(P)特质（玩家在精英有3特质+U特质后给予）</div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>坚韧 <span class="trait-en">Tough</span></th><th>均衡 <span class="trait-en">Balanced</span></th><th>疾风 <span class="trait-en">Runner</span></th><th>主宰 <span class="trait-en">Juggernaut</span></th></tr></thead>
+        <tbody>
+          <tr>
+            <td>+20%减伤<br>+15%伤害</td>
+            <td>+5%移速<br>+20%伤害</td>
+            <td>+25%移速</td>
+            <td>+25%伤害<br>+15%减伤<br>-5%移速</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-title">巨型(M)特质（玩家在生物"原始"且飞升等级7后给予）</div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>坚韧 <span class="trait-en">Tough</span></th><th>均衡 <span class="trait-en">Balanced</span></th><th>疾风 <span class="trait-en">Runner</span>*</th><th>主宰 <span class="trait-en">Juggernaut</span></th></tr></thead>
+        <tbody>
+          <tr>
+            <td>+25%减伤<br>+15%伤害</td>
+            <td>+7.5%移速<br>+25%伤害</td>
+            <td>+15%移速</td>
+            <td>+30%伤害<br>+20%减伤<br>-5%移速</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert alert-info">
+      <span class="alert-label">&#8505; 说明</span>
+      M<span class="trait-en">疾风 Runner</span>被动技能：25%概率减免75-100%的所有受到的伤害，如果减免失败，有额外33%概率减免55-65%的所有受到的伤害，如果再次失败，有最终75%概率减免25-45%的所有受到的伤害！（每次攻击有3次减免伤害的机会）将在增益面板显示"闪避"，表示你拥有M<span class="trait-en">疾风 Runner</span>特质被动技能！
+    </div>
+
+    <!-- 传说特质 -->
+    <h3 class="subsection-title" id="legendary-traits">传说特质</h3>
+    <div class="card">
+      <div class="card-content">
+        <p>仅由终极原始生物掉落，必须飞升等级10才能使用。</p>
+      </div>
+    </div>
+
+    <div class="table-title">传说特质表</div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>精英</th><th>Gamma</th><th>Omega</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>-15%移速<br>+50%伤害<br>-20%减伤<br>30%最大血量伤害</td>
+            <td>-15%移速<br>+25%伤害<br>+15%减伤<br>+100血量/秒</td>
+            <td>+15%移速<br>+25%伤害<br>-20%减伤<br>+10k血量增加</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 侏儒特质 -->
+    <h3 class="subsection-title" id="pygmy-traits">侏儒特质</h3>
+
+    <div class="table-title">侏儒原始-巨型(PP/PM)特质</div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>坚韧 <span class="trait-en">Tough</span></th><th>均衡 <span class="trait-en">Balanced</span></th><th>疾风 <span class="trait-en">Runner</span></th><th>主宰 <span class="trait-en">Juggernaut</span></th></tr></thead>
+        <tbody>
+          <tr>
+            <td>5-35%减伤<br>5-15%伤害</td>
+            <td>5-35%伤害<br>5-15%移速<br>5-15%减伤</td>
+            <td>5-35%移速<br>5-50%伤害</td>
+            <td>5-35%伤害<br>5-15%减伤</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert alert-info">
+      <span class="alert-label">&#8505; 说明</span>
+      每个值独立随机，意味着伤害可能是9%而减伤可能是23%
+    </div>
+    <div class="alert alert-warning">
+      <span class="alert-label">&#9733; 重要</span>
+      随机范围始终固定为最小5%，最高为生物的"拖拽重量"或35%（即700拖拽重量），意味着进化可能产生5%的糟糕随机值或极好的20-35%随机值！
+    </div>
+
+    <div class="table-title">原始侏儒额外增益（基于1300拖拽重量）</div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>生物</th><th>额外增益</th></tr></thead>
+        <tbody>
+          <tr><td>原始侏儒熊</td><td>10%伤害/减伤</td></tr>
+          <tr><td>原始侏儒锤头兽</td><td>15%减伤和5%伤害</td></tr>
+          <tr><td>原始侏儒金刚</td><td>15%伤害和5%减伤</td></tr>
+          <tr><td>原始侏儒蝎狮</td><td>7.5%减伤/伤害和每秒50血量</td></tr>
+          <tr><td>原始侏儒猿人</td><td>20%伤害和每秒25血量</td></tr>
+          <tr><td>原始侏儒霸王龙</td><td>20%减伤</td></tr>
+          <tr><td>原始侏儒犀牛龙</td><td>25%伤害和5%减伤</td></tr>
+          <tr><td>原始冰泰坦</td><td>5%减伤、10%伤害和每秒20血量/体力</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 临时特质 -->
+    <h3 class="subsection-title" id="temp-traits">临时特质</h3>
+    <div class="card">
+      <div class="card-content">
+        <p>临时特质是在战斗中短时间内获得的，不要与被动特质混淆。临时特质提供短时增益，战斗结束后消失。</p>
+      </div>
+    </div>
+
+    <!-- 进化系统 -->
+    <h3 class="subsection-title" id="evolution">进化系统</h3>
+    <ul class="evo-list">
+      <li><strong>普通生物：</strong>不会进化，最适合早期游戏采集</li>
+      <li><strong>AB变种：</strong>所有地图有10%概率生成"畸变"变种，有50%额外伤害和驯服后20%基础血量增加</li>
+      <li><strong>独特生物：</strong>带独特特质的普通生物，不会进化</li>
+      <li><strong>精英生物：</strong>可进化到"巨型"，必须获得3个特质才有概率成为独特</li>
+      <li><strong>原始生物：</strong>不能驯服，必须从"独特精英"进化，需要3个给予或战斗获得的特质+U特质</li>
+      <li><strong>巨型生物：</strong>不能驯服，必须从"原始"进化</li>
+      <li><strong>远古生物：</strong>远古Boss的奖励，模拟Boss对应能力</li>
+    </ul>
+
+    <!-- 物品与消耗品 -->
+    <h3 class="subsection-title" id="items">物品与消耗品</h3>
+
+    <h4 style="color:var(--accent); margin-bottom:12px;">基因链相关</h4>
+    <div class="item-grid">
+      <div class="item-card">
+        <h4>基因链</h4>
+        <span class="rarity rarity-common">常见</span>
+        <p>用于制作物品或给予生物获得随机人工特质</p>
+      </div>
+      <div class="item-card">
+        <h4>高级基因链</h4>
+        <span class="rarity rarity-uncommon">普通</span>
+        <p>给予随机理想特质</p>
+      </div>
+      <div class="item-card">
+        <h4>原始基因链</h4>
+        <span class="rarity rarity-rare">稀有</span>
+        <p>给予精英生物（需U+UW特质），永久增加25%血量</p>
+      </div>
+      <div class="item-card">
+        <h4>巨型基因链</h4>
+        <span class="rarity rarity-rare">稀有</span>
+        <p>给予原始生物，永久增加40%血量+各种功能增强</p>
+      </div>
+      <div class="item-card">
+        <h4>腐化基因链</h4>
+        <span class="rarity rarity-epic">极稀有</span>
+        <p>给予任何生物一次，添加正负25%腐化特质</p>
+      </div>
+      <div class="item-card">
+        <h4>更高级基因链</h4>
+        <span class="rarity rarity-epic">极稀有</span>
+        <p>给予+5-10%当前总特质值，单生物最多3次</p>
+      </div>
+      <div class="item-card">
+        <h4>过充能基因链</h4>
+        <span class="rarity rarity-epic">极稀有</span>
+        <p>受伤时25%概率获得25-75%伤害增加/5-25%减伤/+2-3%最大血量每秒</p>
+      </div>
+      <div class="item-card">
+        <h4>幸运基因链</h4>
+        <span class="rarity rarity-legendary">制作获得</span>
+        <p>添加永久"幸运"特质，12.5%暴击概率+20%额外战利品</p>
+      </div>
+    </div>
+
+    <h4 style="color:var(--accent); margin: 24px 0 12px;">灵药相关</h4>
+    <div class="item-grid">
+      <div class="item-card">
+        <h4>飞升等级灵药</h4>
+        <span class="rarity rarity-rare">稀有</span>
+        <p>保证给予+1自然正面特质，第3次使用时获得独特特质</p>
+      </div>
+      <div class="item-card">
+        <h4>血量再生灵药</h4>
+        <span class="rarity rarity-uncommon">普通</span>
+        <p>每秒恢复2.5%最大血量，持续10秒</p>
+      </div>
+      <div class="item-card">
+        <h4>净化灵药</h4>
+        <span class="rarity rarity-rare">稀有</span>
+        <p>清除所有特质（除飞行残废和不育），可能重新随机W特质</p>
+      </div>
+      <div class="item-card">
+        <h4>强化灵药</h4>
+        <span class="rarity rarity-legendary">极稀有</span>
+        <p>重置基础等级到最高等级</p>
+      </div>
+    </div>
+
+    <h4 style="color:var(--accent); margin: 24px 0 12px;">其他重要物品</h4>
+    <div class="item-grid">
+      <div class="item-card">
+        <h4>碎片神器</h4>
+        <p>感染/额外战利品/额外经验生物掉落</p>
+      </div>
+      <div class="item-card">
+        <h4>飞升等级宝珠</h4>
+        <p>制作或从终极Mega/终极远古获得</p>
+      </div>
+      <div class="item-card">
+        <h4>狩猎经验存储宝珠</h4>
+        <p>存储最多5000狩猎经验</p>
+      </div>
+      <div class="item-card">
+        <h4>召唤令牌</h4>
+        <p>从金渡渡鸟、悬赏、巨型冠军获得</p>
+      </div>
+    </div>
+
+    <!-- 建筑系统 -->
+    <h3 class="subsection-title" id="structures">建筑系统</h3>
+    <ul class="styled-list">
+      <li><strong>召唤祭坛：</strong>召唤终局Boss、回收强化护甲为元素、重置强化护甲</li>
+      <li><strong>采矿熔炉：</strong>每30分钟消耗1个腐化水晶碎片，自动提取资源</li>
+      <li><strong>高级制作台：</strong>所有DOX物品在此制作</li>
+    </ul>
+
+    <!-- 动态系统 -->
+    <h3 class="subsection-title" id="dynamic">动态系统</h3>
+    <ul class="dynamic-list">
+      <li><strong>追猎者：</strong>99级+玩家有概率被追猎者盯上，1-4只强化生物生成，存活15分钟</li>
+      <li><strong>分身兽：</strong>霸主选择1个受害者，58级+玩家附近生成分身兽克隆</li>
+      <li><strong>悬赏：</strong>每1-1.5小时随机出现，战利品比任何单一Boss类型更丰富</li>
+      <li><strong>金渡渡鸟：</strong>战利品皮纳塔，每1-1.5小时生成，击杀后8-12秒消失</li>
+      <li><strong>世界Boss（远古）：</strong>终局Boss，4个阶段（每25%血量转阶段），每个阶段恢复25%血量</li>
+      <li><strong>仇恨：</strong>攻击Boss后Boss持续追踪你45分钟或直到被击杀</li>
+      <li><strong>击杀连击：</strong>最多10层，每层5%伤害增加或50%总增加</li>
+      <li><strong>Warlord：</strong>飞升等级10后永久获得，允许巨型冠军50%概率生成</li>
+      <li><strong>飞升等级(ASC)：</strong>每次原始击杀永久+5%伤害，冰泰坦改为+幸运概率</li>
+    </ul>
+  </div>
+
+  <!-- ==================== 强化护甲系统 ==================== -->
+  <div class="section" id="section-armor">
+    <h2 class="section-title">强化护甲系统</h2>
+
+    <div class="alert alert-warning">
+      <span class="alert-label">&#9733; 通用说明</span>
+      <ul style="margin-top:8px; padding-left:20px;">
+        <li>强化护甲在骑乘任何驯服生物时自动1:1生效</li>
+        <li>套装可以混搭，但要获得套装加成必须拥有任意一套的+2/3/5件</li>
+        <li>数值分为4个等级：普通、优秀、稀有、传说</li>
+        <li>所有完整套装护甲都提供辐射/毒气/环境毒素抗性包括100%骑手防护</li>
+        <li>所有强化护甲可以在召唤祭坛回收为元素（消耗1个CCS）</li>
+        <li>所有强化护甲可以在召唤祭坛重置属性（每次消耗5000狩猎经验），重置次数过多护甲数值会损坏</li>
+        <li><strong style="color:#fcd34d;">重要：强化护甲不支持外观皮肤</strong></li>
+      </ul>
+    </div>
+
+    <!-- 强化甲壳 -->
+    <h3 class="subsection-title">强化甲壳</h3>
+    <div class="set-bonus">
+      <strong>套装加成：</strong>(5) +25血量 -- (3) 7.5%伤害 -- (2) 12.5%减伤<br>
+      <strong>额外(5)套装加成：</strong>免疫大多数常见燃烧%持续伤害效果
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>部位</th><th>伤害</th><th>减伤</th><th>移速</th></tr></thead>
+        <tbody>
+          <tr><td>靴子</td><td>7.5%</td><td>5%</td><td>10%</td></tr>
+          <tr><td>手套</td><td>10%</td><td>5%</td><td>5%</td></tr>
+          <tr><td>头盔</td><td>5%</td><td>10%</td><td>5%</td></tr>
+          <tr><td>裤子</td><td>5%</td><td>10%</td><td>10%</td></tr>
+          <tr><td>胸甲</td><td>7.5%</td><td>10%</td><td>7.5%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="armor-total">总计：112.5（毒素/昏迷抗性 -- 25%）</div>
+
+    <!-- 强化布衣 -->
+    <h3 class="subsection-title">强化布衣</h3>
+    <div class="set-bonus">
+      <strong>套装加成：</strong>(5) 30%减伤/+25%制作品质 -- (3) +15血量 -- (2) 15%体力<br>
+      <strong>额外(5)套装加成：</strong>受伤时17%概率立即恢复7.5%最大血量（5秒冷却），失败则20%概率恢复3.75%（3.75秒冷却），再失败则33%概率恢复2.25%（3秒冷却）-- 总概率55%
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>部位</th><th>伤害</th><th>减伤</th><th>移速</th></tr></thead>
+        <tbody>
+          <tr><td>靴子</td><td>7.5%</td><td>0%</td><td>15%</td></tr>
+          <tr><td>手套</td><td>12.5%</td><td>0%</td><td>7.5%</td></tr>
+          <tr><td>头盔</td><td>5%</td><td>0%</td><td>15%</td></tr>
+          <tr><td>裤子</td><td>10%</td><td>2.5%</td><td>12.5%</td></tr>
+          <tr><td>胸甲</td><td>10%</td><td>5%</td><td>10%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="armor-total">总计：112.5（小型生物抗性 -- 25%）</div>
+
+    <!-- 强化沙漠 -->
+    <h3 class="subsection-title">强化沙漠</h3>
+    <div class="set-bonus">
+      <strong>套装加成：</strong>(5) 25%体力 -- (3) 20%减伤 -- (2) +10血量<br>
+      <strong>额外(5)套装加成：</strong>拥有与M<span class="trait-en">疾风 Runner</span>技能相同的闪避能力（不与M<span class="trait-en">疾风 Runner</span>叠加）
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>部位</th><th>伤害</th><th>减伤</th><th>移速</th></tr></thead>
+        <tbody>
+          <tr><td>靴子</td><td>10%</td><td>0%</td><td>12.5%</td></tr>
+          <tr><td>手套</td><td>12.5%</td><td>0%</td><td>7.5%</td></tr>
+          <tr><td>头盔</td><td>5%</td><td>5%</td><td>10%</td></tr>
+          <tr><td>裤子</td><td>10%</td><td>0%</td><td>15%</td></tr>
+          <tr><td>胸甲</td><td>10%</td><td>5%</td><td>10%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="armor-total">总计：112.5（火焰/闪电抗性 -- 35%/25%）</div>
+
+    <!-- 强化防弹 -->
+    <h3 class="subsection-title">强化防弹</h3>
+    <div class="set-bonus">
+      <strong>套装加成：</strong>(5) 15%移速 -- (3) 15%体力 -- (2) 15%减伤
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>部位</th><th>伤害</th><th>减伤</th><th>移速</th></tr></thead>
+        <tbody>
+          <tr><td>靴子</td><td>15%</td><td>5%</td><td>0%</td></tr>
+          <tr><td>手套</td><td>15%</td><td>5%</td><td>0%</td></tr>
+          <tr><td>头盔</td><td>5%</td><td>15%</td><td>0%</td></tr>
+          <tr><td>裤子</td><td>12.5%</td><td>15%</td><td>0%</td></tr>
+          <tr><td>胸甲</td><td>10%</td><td>15%</td><td>0%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="armor-total">总计：112.5（小型/中型/大型生物抗性 -- 25%）</div>
+
+    <!-- 强化毛皮 -->
+    <h3 class="subsection-title">强化毛皮</h3>
+    <div class="set-bonus">
+      <strong>套装加成：</strong>(5) 20%伤害 -- (3) 10%减伤 -- (2) +20血量
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>部位</th><th>伤害</th><th>减伤</th><th>移速</th></tr></thead>
+        <tbody>
+          <tr><td>靴子</td><td>7.5%</td><td>5%</td><td>10%</td></tr>
+          <tr><td>手套</td><td>7.5%</td><td>7.5%</td><td>7.5%</td></tr>
+          <tr><td>头盔</td><td>5%</td><td>5%</td><td>10%</td></tr>
+          <tr><td>裤子</td><td>5%</td><td>7.5%</td><td>10%</td></tr>
+          <tr><td>胸甲</td><td>10%</td><td>7.5%</td><td>7.5%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="armor-total">总计：112.5（小型生物抗性 -- 35%）</div>
+
+    <!-- 强化吉利 -->
+    <h3 class="subsection-title">强化吉利</h3>
+    <div class="set-bonus">
+      <strong>套装加成：</strong>(5) 25%体力 -- (3) 15%伤害 -- (2) +10血量
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>部位</th><th>伤害</th><th>减伤</th><th>移速</th></tr></thead>
+        <tbody>
+          <tr><td>靴子</td><td>7.5%</td><td>7.5%</td><td>7.5%</td></tr>
+          <tr><td>手套</td><td>7.5%</td><td>7.5%</td><td>7.5%</td></tr>
+          <tr><td>头盔</td><td>5%</td><td>7.5%</td><td>7.5%</td></tr>
+          <tr><td>裤子</td><td>5%</td><td>12.5%</td><td>5%</td></tr>
+          <tr><td>胸甲</td><td>10%</td><td>12.5%</td><td>5%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="armor-total">总计：112.5（火焰/闪电抗性 -- 35%）</div>
+
+    <!-- 强化皮甲 -->
+    <h3 class="subsection-title">强化皮甲</h3>
+    <div class="set-bonus">
+      <strong>套装加成：</strong>(5) 10%伤害/减伤/x2负重 -- (3) +25血量 -- (2) 25%体力
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>部位</th><th>伤害</th><th>减伤</th><th>移速</th></tr></thead>
+        <tbody>
+          <tr><td>靴子</td><td>10%</td><td>5%</td><td>7.5%</td></tr>
+          <tr><td>手套</td><td>10%</td><td>5%</td><td>7.5%</td></tr>
+          <tr><td>头盔</td><td>5%</td><td>5%</td><td>7.5%</td></tr>
+          <tr><td>裤子</td><td>7.5%</td><td>10%</td><td>5%</td></tr>
+          <tr><td>胸甲</td><td>7.5%</td><td>15%</td><td>5%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="armor-total">总计：112.5（小型/中型生物抗性 -- 25%）</div>
+
+    <!-- 强化防暴 -->
+    <h3 class="subsection-title">强化防暴</h3>
+    <div class="set-bonus">
+      <strong>套装加成：</strong>(5) 10%移速 -- (3) 15%减伤 -- (2) +25血量
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>部位</th><th>伤害</th><th>减伤</th><th>移速</th></tr></thead>
+        <tbody>
+          <tr><td>靴子</td><td>12.5%</td><td>5%</td><td>2.5%</td></tr>
+          <tr><td>手套</td><td>12.5%</td><td>5%</td><td>2.5%</td></tr>
+          <tr><td>头盔</td><td>5%</td><td>15%</td><td>2.5%</td></tr>
+          <tr><td>裤子</td><td>7.5%</td><td>12.5%</td><td>2.5%</td></tr>
+          <tr><td>胸甲</td><td>10%</td><td>15%</td><td>2.5%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="armor-total">总计：112.5（小型/中型生物抗性 -- 40%）</div>
+
+    <!-- 强化泰克 -->
+    <h3 class="subsection-title">强化泰克</h3>
+    <div class="set-bonus">
+      <strong>套装加成：</strong>(5) 15%减伤 -- (3) 15%伤害 -- (2) +50血量
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>部位</th><th>伤害</th><th>减伤</th><th>移速</th></tr></thead>
+        <tbody>
+          <tr><td>靴子</td><td>7.5%</td><td>15%</td><td>5%</td></tr>
+          <tr><td>手套</td><td>17.5%</td><td>10%</td><td>2.5%</td></tr>
+          <tr><td>头盔</td><td>12.5%</td><td>15%</td><td>2.5%</td></tr>
+          <tr><td>裤子</td><td>12.5%</td><td>15%</td><td>5%</td></tr>
+          <tr><td>胸甲</td><td>12.5%</td><td>15%</td><td>2.5%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="armor-total">总计：150（包含所有原版功能 -- 不需要元素即可使用）</div>
+  </div>
+
+  <!-- ==================== 游戏设置配置 ==================== -->
+  <div class="section" id="section-settings">
+    <h2 class="section-title">游戏设置配置</h2>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>设置项</th><th>默认值</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>追猎者</td><td>开启</td><td>追猎者针对99级以上的玩家</td></tr>
+          <tr><td>分身兽</td><td>开启</td><td>分身兽可以在58级以上的任何玩家附近生成。等级段：58-77级(低)/78-98级(中)/99级以上(高)</td></tr>
+          <tr><td>全局增益</td><td>开启</td><td>额外击杀经验、额外战利品、平衡、感染滋生、强化</td></tr>
+          <tr><td>全局增益概率</td><td>28</td><td>默认28，输入10-1000之间的值。较低的值意味着较高的概率</td></tr>
+          <tr><td>全局腐化增益</td><td>开启</td><td>生物能否以感染滋生增益生成</td></tr>
+          <tr><td>仇恨</td><td>开启</td><td>攻击Boss时仇恨针对玩家，持续2小时或直到Boss被击杀</td></tr>
+          <tr><td>伏击</td><td>开启</td><td>泰坦霸主潜伏发动附近终极强化生物的伏击（101级+玩家）</td></tr>
+          <tr><td>冰冻仓冷却</td><td>开启</td><td>防止在上次解除冰冻后20秒内再次冰冻</td></tr>
+          <tr><td>动态缩放</td><td>开启</td><td>基于攻击者实力动态缩放Boss强度</td></tr>
+          <tr><td>群体控制</td><td>开启</td><td>50只驯服生物25米内阻止繁殖</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== 常见问题解答 ==================== -->
+  <div class="section" id="section-faq">
+    <h2 class="section-title">常见问题解答</h2>
+    <p class="section-subtitle">点击问题展开/收起答案</p>
+
+    <div id="faqContainer">
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: DOX 2能和其他生物mod一起用吗？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 不能，虽然可能不会崩溃游戏，但会完全不平衡且无法使用DOX自定义系统，还会阻止DOX生物生成！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: DOX 2中驯服是怎么工作的？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 你需要赚取"狩猎经验"，可以用来"手动喂食"（推荐用于非攻击性生物）或在附近放置食物堆/饲料。注意：如果没有足够狩猎经验你将无法手动喂食。注意：如果看到紫色光芒说明生物不喜欢提供的食物！注意：特殊生物如火龙、蝎狮、飞龙、岩石巨人等仍使用原版或mod的驯服方式。</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 为什么我一直获得"不匹配"增益？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 因为你在与拖拽重量等级差距太大的生物战斗！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 生物的等级和类型会影响特质结果吗？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 是也不是，生物等级本身不影响特质，但有一个例外：当侏儒或非侏儒生物有原始/巨型特质时，数值有概率随机更高，生物越大（拖拽重量越高）。例如进化鲨齿龙到原始比进化迅猛龙到原始可以获得更高的"<span class="trait-en">坚韧 Tough</span>"、"<span class="trait-en">均衡 Balanced</span>"等。</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 为什么生物上有红色闪光？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 因为它刚杀了什么东西，短时间内无法驯服。</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我打的草食生物低血量时出现绿色闪光，打人超痛，为什么？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 草食生物独有"最后机会"技能，25%血量以下时触发，给予50%伤害增加持续短时间！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我喂的被动驯服生物食物耗尽死了，救命！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 你需要尽量喂食最高品质或偏好的食物来防止它在完全驯服前饿死！（高品质食物也驯服更快，消耗更少狩猎经验）</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我怎么获得原始/巨型？野生的只想杀我！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 你必须先拥有任何类型的"精英"，然后从击杀原始获得原始基因链，再用它将精英进化为原始精英，之后当你击杀巨型并获得其基因后可以给予巨型基因链！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 为什么我不能给我的"精英"喂"原始基因链"？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 因为它还需要至少3个非(W)永久特质或3个(A)特质加上(U)特质！名称中有"独特"（如独特精英渡渡鸟）还不够，(UW)不算，必须是(U)特质！通过战斗获得，承受足够伤害后最终会获得(U)特质！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我怎么让我的生物"独特"并获得(U)特质？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 虽然你可以在野外找到名称中有"独特"和(UW)特质的生物，但它们没有(U)特质。这需要通过获得3个非(W)特质（通过A特质或战斗中自然获得的特质）来实现。一旦你有3个永久特质，在战斗中最终会获得(U)特质！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: DOX 2目前有多少个等级？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 8个：普通、独特、原始、巨型、旧版、侏儒、远古和精英。注意：精英是允许进化潜力的基础等级。</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我在专用服务器上看到巨型出现消息但看不到坐标，为什么？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 发现该巨型的玩家会收到那些增益坐标作为鼓励探索的方式。如果该玩家死亡会丢失坐标！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 侏儒有糟糕特质怎么办？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 你可以在它们背包中放入1个腐化水晶碎片(CCS)然后打它来献祭，获得基因链甚至更高级基因链！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我怎么获得"Warlord"碎片？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 达到飞升等级10后你的生物被标记为"Warlord"，之后击杀任何巨型有50%概率生成"冠军巨型生物"（x1.5缩放）-- 30分钟存活时间！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 为什么我看不到DOX蓝图或无法放置DOX建筑？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 这是原版游戏和mod的已知bug（不只是DOX），重启Steam或你的控制台并重新登录，可能需要做几次！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我的精英/原始/巨型血量没有恢复到列出的最大值，为什么？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 模组冰冻仓/球尝试保存增益和变量，有时在生物重新部署时无法更新客户端，使用原版冰冻仓来恢复数值！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 原始/巨型生物血量在解除冰冻后一直重置？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: DOX对原始/巨型生物使用自己的血量保存系统。</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 模组望远镜说我只需要"X"数量的饲料/食物，但实际是2倍或更多，为什么？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 模组望远镜只计算原版驯服方式，需要放置在附近的饲料通常是列出数量的2倍！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 为什么我只收到10%驯服效率？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 因为你在玩DOX！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我怎么驯服火龙/蝎狮/飞龙/岩龙？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 你需要找到保护巢穴的雌性，击杀亲代并从巢穴中拿蛋（必须75级或更高）。岩龙是例外，需要找到有增益表明它是携带蛋的亲代的雌性岩龙！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我怎么进化我的侏儒？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 你不能，你只能使用2种侏儒进化饲料之一将普通体型生物进化为侏儒。注意：侏儒可以用与非侏儒相同的方式获得特质，但如果它还不是原始或巨型则不能进化为原始或巨型！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 为什么Boss生物进入我的基地？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 不要将炮塔骑乘到或紧挨着你的基地，还要确保基地内所有生物都完全被覆盖且从外部不可见！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: DOX 2在所有地图上都能用吗？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 是的，所有官方和高级地图都能用，非高级地图也应该能用，但可能会遇到问题！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我怎么增加每次击杀获得的"狩猎经验"？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 在GameUserSettings.ini中增加KillXPMultiplier=1</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 召唤的小兵会缩放吗？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 会，缩放到被召唤生物的等级，并获得比召唤等级多最多50个属性点！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我怎么发动特殊X攻击？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 按键盘上的X键，或使用手柄时按下方向键！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 模组望远镜说在最后一个背包槽放置"食物"，但生物想杀我或跑掉！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 望远镜不总是准确的，发生这种情况时在附近地面上放置驯服食物！（注意：有些生物仍使用独特的原版驯服方式如岩石巨人、巨盗龙、蛇怪等）</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我搜索时找不到DOX 2，救命！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 输入："Dino Overhaul X 2"应该在前3页找到！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我在击杀精英生物但获得很少或没有基因链！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 拖拽重量是获得基因链概率的决定因素，精英渡渡鸟、双脊龙等远不如霸王龙、鲨齿龙、南方巨兽龙容易掉基因链！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 怎么关闭属性数据界面？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 切换：SHIFT+Z（手柄玩家需要使用键盘）</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 击杀后我没有获得狩猎经验！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 比渡渡鸟还小的生物不给予狩猎经验！此外确保你世界中的生物名称描述中有"*"，如果没有执行一次野生恐龙清除！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 有些DOX生物/功能部分不工作！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 某些添加"UI/HUD"或修改"玩家输入"的mod会与DOX机制冲突（如"Mouse Saver"或"HUDAscended"）</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: F12在使用键盘访问DOX属性追踪器时截图！(Steam)</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 重新绑定为Shift+F12或分配其他按键，或在暂停菜单中访问属性追踪器！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我的冰冻仓mod设置为在冰冻仓中治愈生物，显示完全治愈但解除冰冻后不是！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: DOX总是应用冰冻前的最后已知血量给任何有原始/巨型特质的生物；DOX不兼容任何冰冻仓治愈功能！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我的服务器延迟很高！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: "Dino Depot"等mod有"DinoballPersistsBuffs=True"改为False，可以从任何Dino Depot终端通过"mod配置"直接修改，但推荐直接通过gameusersettings.ini修改。</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 为什么我的2个精英孵化出非精英幼崽？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 10%概率产蛋的父母会生出非精英变种！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 推荐执行野生恐龙清除吗？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 不推荐，如果你希望生成特定生物，手动击杀该区域已知的生成该生物的其他生物！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我应该把最大生物等级提高到250-300以上吗？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 不，没有为300以上的生物基础等级做平衡！属性不会正确缩放！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 当我克隆原始/巨型时它失去了原始/巨型特质和%数值！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 正确，你需要重新添加原始/巨型特质到任何新克隆的生物。确保在使用原始/巨型基因链前将点数放回"血量"属性，因为它基于最大血量缩放！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 服务器重启时的恐龙清除仍显示原版生物！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 在游戏中通过控制台命令执行野生恐龙清除，在服务器重启时执行不总是有效！-- cheat destroywilddinos</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 强化护甲在登录/重新登录后不生效！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 重新装备所有护甲部件将修复此问题，不要在装备护甲时下线！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 生物有紫色光芒和"无法驯服 -- 2分钟"增益... 为什么？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 要么不喜欢该食物类型要么受到了伤害！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 驯服的旧版/原始怎么获得原版特质？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 它们可以在生成时获得最多5个特质，因为它们不能繁殖且从未是幼崽！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我的生物在冰冻仓中治愈到满血但解除冰冻后恢复到之前血量！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: DOX生物不支持任何冰冻仓来源的治愈，必须留在冰冻仓外治愈！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 我在洞穴里安全吗能躲避追猎者和其他敌人吗？</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 不安全，追猎者可以在洞穴中生成，最好建造完全封闭的基地即使在洞穴里；意味着地板、墙壁和天花板！</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question"><h4>Q: 无法把侏儒从肩膀上拿下来！</h4><span class="faq-toggle">&#9660;</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">A: 进入第一人称视角再试，可能需要几次尝试，移动角色视角。</div></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">&#9650;</button>
+
+<script>
+// ========== HAMBURGER MENU ==========
+const hamburger = document.getElementById('hamburger');
+const nav = document.getElementById('nav');
+const navOverlay = document.getElementById('navOverlay');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  nav.classList.toggle('open');
+  navOverlay.classList.toggle('open');
+});
+
+navOverlay.addEventListener('click', () => {
+  hamburger.classList.remove('active');
+  nav.classList.remove('open');
+  navOverlay.classList.remove('open');
+});
+
+// Close nav on link click (mobile)
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      hamburger.classList.remove('active');
+      nav.classList.remove('open');
+      navOverlay.classList.remove('open');
+    }
+  });
+});
+
+// ========== NAV SECTION TOGGLE ==========
+document.querySelectorAll('.nav-section-title[data-toggle]').forEach(title => {
+  title.addEventListener('click', () => {
+    const targetId = title.getAttribute('data-toggle') + '-items';
+    const items = document.getElementById(targetId);
+    if (items) {
+      title.classList.toggle('collapsed');
+      items.classList.toggle('collapsed');
+    }
+  });
+});
+
+// ========== NAV SECTION TITLE CLICK ==========
+document.querySelectorAll('.nav-section-title[data-target]').forEach(title => {
+  title.addEventListener('click', () => {
+    const target = document.getElementById(title.getAttribute('data-target'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ========== SCROLL ANIMATIONS (IntersectionObserver) ==========
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.section').forEach(section => {
+  observer.observe(section);
+});
+
+// ========== ACTIVE NAV LINK ==========
+const sections = document.querySelectorAll('.section, .subsection-title');
+const navLinks = document.querySelectorAll('.nav-link');
+
+function updateActiveNav() {
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 100;
+    if (window.scrollY >= sectionTop) {
+      current = section.getAttribute('id');
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActiveNav);
+
+// ========== BACK TO TOP ==========
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 500) {
+    backToTop.classList.add('visible');
+  } else {
+    backToTop.classList.remove('visible');
+  }
+});
+
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ========== FAQ ACCORDION ==========
+document.querySelectorAll('.faq-question').forEach(question => {
+  question.addEventListener('click', () => {
+    const item = question.parentElement;
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+
+    // Toggle current
+    if (!isOpen) {
+      item.classList.add('open');
+    }
+  });
+});
+
+// ========== FAQ SEARCH ==========
+const searchInput = document.getElementById('searchInput');
+const faqContainer = document.getElementById('faqContainer');
+const faqItems = document.querySelectorAll('.faq-item');
+
+searchInput.addEventListener('input', (e) => {
+  const query = e.target.value.toLowerCase().trim();
+
+  if (!query) {
+    faqItems.forEach(item => {
+      item.style.display = '';
+      // Remove highlights
+      item.querySelectorAll('.search-highlight').forEach(hl => {
+        hl.outerHTML = hl.textContent;
+      });
+    });
+    // Show all sections
+    document.querySelectorAll('.section').forEach(s => s.style.display = '');
+    return;
+  }
+
+  // Scroll to FAQ section
+  const faqSection = document.getElementById('section-faq');
+  if (faqSection) {
+    faqSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  faqItems.forEach(item => {
+    const questionText = item.querySelector('h4').textContent.toLowerCase();
+    const answerText = item.querySelector('.faq-answer-inner').textContent.toLowerCase();
+
+    if (questionText.includes(query) || answerText.includes(query)) {
+      item.style.display = '';
+      item.classList.add('open');
+    } else {
+      item.style.display = 'none';
+      item.classList.remove('open');
+    }
+  });
+});
+
+// ========== COPY BUTTONS ==========
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const code = btn.previousElementSibling.textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = '已复制!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '复制';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  });
+});
+
+// ========== KEYBOARD SHORTCUTS ==========
+document.addEventListener('keydown', (e) => {
+  // Ctrl+K or / to focus search
+  if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && document.activeElement.tagName !== 'INPUT')) {
+    e.preventDefault();
+    searchInput.focus();
+  }
+
+  // Escape to close search
+  if (e.key === 'Escape') {
+    searchInput.value = '';
+    searchInput.dispatchEvent(new Event('input'));
+    searchInput.blur();
+  }
+});
+</script>
+
+</body>
+</html>
